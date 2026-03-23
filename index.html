@@ -1,811 +1,377 @@
-
+// Ei você! desativa essa merda desse DEVTOOLS KKKKKKKKK
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andy Nunes • Tarot e Magias</title>
+  <title>Andy Tarot e Magias • Portal da Clareza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --gold: #f6d27a;
+      --pink: #f472b6;
+      --dark-bg: #0a040b;
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: rgba(246, 210, 122, 0.2);
+    }
+
+    * { box-sizing: border-box; outline: none; }
     html { scroll-behavior: smooth; }
+    
     body {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: 'Cormorant Garamond', serif;
       color: #fff7ef;
-      background:
-        radial-gradient(circle at top, rgba(164, 28, 58, .45), transparent 28%),
-        radial-gradient(circle at 18% 10%, rgba(255, 188, 85, .12), transparent 22%),
-        radial-gradient(circle at 82% 8%, rgba(139, 92, 246, .16), transparent 24%),
-        linear-gradient(180deg, #17050d 0%, #0a040b 48%, #12050f 100%);
-      min-height: 100vh;
+      background: #0a040b;
+      background-image: 
+        radial-gradient(circle at top, rgba(164, 28, 58, .3), transparent 40%),
+        linear-gradient(180deg, #0a040b 0%, #1a0815 100%);
       overflow-x: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .35;
-      background-image:
-        radial-gradient(circle at 10% 14%, rgba(255,255,255,.9) 0 1px, transparent 2px),
-        radial-gradient(circle at 22% 60%, rgba(255,255,255,.8) 0 1px, transparent 2px),
-        radial-gradient(circle at 44% 22%, rgba(255,255,255,.75) 0 1px, transparent 2px),
-        radial-gradient(circle at 68% 11%, rgba(255,255,255,.85) 0 1px, transparent 2px),
-        radial-gradient(circle at 83% 33%, rgba(255,255,255,.7) 0 1px, transparent 2px),
-        radial-gradient(circle at 72% 78%, rgba(255,255,255,.8) 0 1px, transparent 2px),
-        radial-gradient(circle at 93% 84%, rgba(255,255,255,.7) 0 1px, transparent 2px);
-    }
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,215,0,.05), transparent 18%),
-        radial-gradient(circle at 80% 70%, rgba(255,0,90,.05), transparent 18%);
-      animation: shimmer 9s linear infinite alternate;
-    }
-    @keyframes shimmer {
-      from { transform: scale(1) translateY(0); opacity: .7; }
-      to { transform: scale(1.06) translateY(-10px); opacity: 1; }
-    }
-    @keyframes floaty {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes pulseGlow {
-      0%,100% { box-shadow: 0 0 0 rgba(255,215,0,0); }
-      50% { box-shadow: 0 0 28px rgba(255,188,85,.18); }
-    }
-    @keyframes twinkle {
-      0%,100% { opacity: .45; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.08); }
-    }
-    a { text-decoration: none; color: inherit; }
-    .container { width: min(1160px, calc(100% - 32px)); margin: 0 auto; position: relative; z-index: 1; }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 999px;
-      padding: 11px 18px;
-      border: 1px solid rgba(246,210,122,.24);
-      background: rgba(246,210,122,.08);
-      color: #f6d27a;
-      font-size: 12px;
-      letter-spacing: .24em;
-      text-transform: uppercase;
-      box-shadow: inset 0 0 24px rgba(246,210,122,.05);
-      animation: pulseGlow 6s ease-in-out infinite;
-    }
-    .hero {
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid rgba(246,210,122,.12);
-      padding-bottom: 8px;
-    }
-    .hero::before {
-      content: "☾ ✦ ☽";
-      position: absolute;
-      top: 26px;
-      right: 5%;
-      color: rgba(246,210,122,.18);
-      font-size: 34px;
-      letter-spacing: 10px;
-      animation: twinkle 6s ease-in-out infinite;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      gap: 34px;
-      align-items: center;
-      padding: 86px 0 70px;
-    }
-    h1 {
-      margin: 18px 0 0;
-      font-size: 74px;
-      line-height: .96;
-      font-weight: 700;
-      letter-spacing: -.02em;
-      text-shadow: 0 0 35px rgba(246,210,122,.09);
-    }
-    h1 span { color: #f8a7b8; }
-    .subtitle {
-      margin-top: 22px;
-      max-width: 680px;
-      font-size: 20px;
-      line-height: 1.9;
-      color: rgba(255,247,239,.84);
-    }
-    .identity {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .identity span {
-      border-radius: 999px;
-      padding: 10px 14px;
-      border: 1px solid rgba(248,167,184,.18);
-      background: rgba(255,255,255,.04);
-      color: #ffe8f1;
-      font-size: 14px;
-      animation: floaty 7s ease-in-out infinite;
-    }
-    .identity span:nth-child(2) { animation-delay: .6s; }
-    .identity span:nth-child(3) { animation-delay: 1.2s; }
-    .identity span:nth-child(4) { animation-delay: 1.8s; }
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-    .btn-primary, .btn-secondary {
-      display: inline-block;
-      padding: 15px 22px;
-      border-radius: 18px;
-      font-weight: 700;
-      transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease;
-    }
-    .btn-primary {
-      color: #2c1200;
-      background: linear-gradient(90deg, #f6d27a, #f472b6);
-      box-shadow: 0 10px 30px rgba(246,210,122,.18), 0 0 28px rgba(244,114,182,.08);
-    }
-    .btn-secondary {
-      color: #fff7ef;
-      border: 1px solid rgba(246,210,122,.22);
-      background: rgba(255,255,255,.05);
-      backdrop-filter: blur(10px);
-    }
-    .btn-primary:hover, .btn-secondary:hover {
-      transform: translateY(-2px) scale(1.01);
-      opacity: .98;
-    }
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-    .chip {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(246,210,122,.16);
-      color: rgba(255,247,239,.82);
-      font-size: 14px;
-      background: rgba(255,255,255,.03);
-    }
-    .hero-card, .card, .about-card, .benefit, .service-panel {
-      border-radius: 30px;
-      border: 1px solid rgba(246,210,122,.14);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03)),
-        rgba(10,5,12,.72);
-      backdrop-filter: blur(16px);
-      box-shadow: inset 0 0 22px rgba(246,210,122,.03);
-    }
-    .hero-card {
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 38px rgba(246,210,122,.12);
-    }
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 15% 15%, rgba(246,210,122,.12), transparent 24%),
-        radial-gradient(circle at 85% 18%, rgba(244,114,182,.10), transparent 24%);
-    }
-    .portrait {
-      border-radius: 26px;
-      min-height: 420px;
-      border: 1px solid rgba(246,210,122,.18);
-      background:
-        linear-gradient(180deg, rgba(246,210,122,.10), rgba(244,114,182,.06)),
-        radial-gradient(circle at center, rgba(255,255,255,.04), rgba(255,255,255,.01)),
-        #12060e;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 28px;
-      overflow: hidden;
-      position: relative;
-    }
-    .portrait::before {
-      content: "✦";
-      position: absolute;
-      top: 18px;
-      left: 20px;
-      color: rgba(246,210,122,.5);
-      animation: twinkle 3s ease-in-out infinite;
-    }
-    .portrait::after {
-      content: "☽";
-      position: absolute;
-      top: 18px;
-      right: 20px;
-      color: rgba(246,210,122,.45);
-      font-size: 26px;
-      animation: twinkle 4s ease-in-out infinite;
-    }
-    .portrait-placeholder {
-      max-width: 320px;
-      position: relative;
-      z-index: 1;
-    }
-    .portrait-ring {
-      width: 170px;
-      height: 170px;
-      border-radius: 999px;
-      margin: 0 auto 18px;
-      border: 1px solid rgba(246,210,122,.35);
-      display: grid;
-      place-items: center;
-      font-size: 58px;
-      color: #f6d27a;
-      background: radial-gradient(circle, rgba(246,210,122,.08), transparent 68%);
-      box-shadow: 0 0 35px rgba(246,210,122,.12), inset 0 0 18px rgba(246,210,122,.08);
-      animation: floaty 5s ease-in-out infinite;
-    }
-    .price-wrap {
-      margin-top: 18px;
-      border-radius: 24px;
-      border: 1px solid rgba(246,210,122,.12);
-      background: rgba(255,255,255,.03);
-      padding: 18px;
-    }
-    .price-title {
-      margin: 0 0 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #f6d27a;
-      font-size: 26px;
-      font-weight: 700;
-    }
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 13px 15px;
-      border-radius: 16px;
-      border: 1px solid rgba(246,210,122,.08);
-      background: rgba(255,255,255,.03);
-      margin-top: 10px;
-      color: rgba(255,247,239,.88);
-    }
-    .row strong { color: #f6d27a; }
-    section { padding: 76px 0; }
-    .section-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      align-items: end;
-      margin-bottom: 28px;
-    }
-    .eyebrow {
-      color: rgba(248,167,184,.82);
-      text-transform: uppercase;
-      letter-spacing: .25em;
-      font-size: 12px;
-    }
-    .section-top h2 {
-      font-size: 46px;
-      margin: 10px 0 0;
-      color: #fff2cc;
-    }
-    .section-top p {
-      max-width: 540px;
-      line-height: 1.8;
-      color: rgba(255,247,239,.72);
-      margin: 0;
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: .78fr 1.22fr;
-      gap: 24px;
-      align-items: center;
-    }
-    .about-photo-wrap {
-      display: flex;
-      justify-content: center;
-    }
-    .about-photo {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      border: 3px solid rgba(246,210,122,.55);
-      background:
-        radial-gradient(circle at 30% 30%, rgba(246,210,122,.22), transparent 35%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
-        #15060f;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 26px;
-      box-shadow: 0 0 40px rgba(246,210,122,.14), inset 0 0 28px rgba(246,210,122,.08);
-      animation: floaty 6s ease-in-out infinite;
-    }
-    .about-photo b {
-      color: #f6d27a;
-      display: block;
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    .about-card {
-      padding: 28px;
-    }
-    .about-card h3 {
-      margin: 0;
-      color: #fff2cc;
-      font-size: 38px;
-    }
-    .about-card p {
-      margin: 18px 0 0;
-      color: rgba(255,247,239,.78);
-      line-height: 1.95;
-      font-size: 18px;
-    }
-    .about-marks {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 22px;
-    }
-    .about-marks span {
-      border-radius: 999px;
-      padding: 11px 15px;
-      border: 1px solid rgba(246,210,122,.16);
-      background: rgba(255,255,255,.04);
-      color: #fff0d7;
-      font-size: 14px;
-    }
-    .cards, .service-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-    .card, .service-panel {
-      padding: 24px;
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
-    .card:hover, .service-panel:hover {
-      transform: translateY(-4px);
-      border-color: rgba(246,210,122,.28);
-      box-shadow: 0 0 24px rgba(246,210,122,.07);
-    }
-    .card.featured {
-      border-color: rgba(246,210,122,.34);
-      background:
-        linear-gradient(180deg, rgba(246,210,122,.10), rgba(244,114,182,.04)),
-        rgba(10,5,12,.72);
-      box-shadow: 0 0 38px rgba(246,210,122,.12);
-    }
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: start;
-    }
-    .card h3, .service-panel h3 {
-      margin: 0;
-      font-size: 30px;
-      color: #fff2cc;
-    }
-    .price-pill {
-      white-space: nowrap;
-      border-radius: 999px;
-      border: 1px solid rgba(246,210,122,.18);
-      background: rgba(246,210,122,.08);
-      color: #f6d27a;
-      padding: 8px 12px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .card p, .service-panel p {
-      color: rgba(255,247,239,.76);
-      line-height: 1.8;
-      margin: 16px 0 0;
-    }
-    .card ul, .service-panel ul {
-      margin: 16px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-    .card li, .service-panel li {
-      margin: 10px 0;
-      display: flex;
-      gap: 10px;
-      color: rgba(255,240,245,.82);
-      font-size: 15px;
       line-height: 1.6;
     }
-    .card li::before, .service-panel li::before {
-      content: "✦";
-      color: #f6d27a;
-      margin-top: 1px;
+
+    .stars-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
     }
-    .small-btn {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 13px 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(248,167,184,.18);
-      background: rgba(244,114,182,.08);
-      color: #fff2cc;
-      font-weight: 700;
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 0;
+      background: rgba(10, 4, 11, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
     }
-    .mystic-strip {
-      padding: 34px 0;
-      border-top: 1px solid rgba(246,210,122,.08);
-      border-bottom: 1px solid rgba(246,210,122,.08);
-      background: rgba(0,0,0,.22);
-    }
-    .line {
+    .nav-content {
       display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .seal {
-      border-radius: 999px;
-      padding: 12px 18px;
-      border: 1px solid rgba(246,210,122,.16);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,247,239,.84);
-      animation: floaty 7s ease-in-out infinite;
-    }
-    .seal:nth-child(2) { animation-delay: .7s; }
-    .seal:nth-child(3) { animation-delay: 1.4s; }
-    .seal:nth-child(4) { animation-delay: 2.1s; }
-    .benefits {
-      background: rgba(0,0,0,.18);
-      border-top: 1px solid rgba(246,210,122,.08);
-      border-bottom: 1px solid rgba(246,210,122,.08);
-    }
-    .benefit-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-    .benefit {
-      padding: 24px;
-    }
-    .benefit h3 {
-      margin: 0;
-      color: #fff2cc;
-      font-size: 26px;
-    }
-    .benefit p {
-      margin: 12px 0 0;
-      color: rgba(255,247,239,.72);
-      line-height: 1.8;
-    }
-    .social-box {
-      margin-top: 18px;
-      border-radius: 20px;
-      padding: 16px 18px;
-      border: 1px solid rgba(246,210,122,.14);
-      background: rgba(255,255,255,.03);
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      justify-content: space-between;
       align-items: center;
+      padding: 0 5%;
     }
-    .insta {
-      color: #ffd9e7;
+    .logo { 
+      font-family: 'Cinzel', serif; 
+      color: var(--gold); 
+      font-weight: 700; 
+      font-size: 1.2rem; 
+      letter-spacing: 2px;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .container { width: min(1200px, 90%); margin: 0 auto; position: relative; z-index: 1; }
+
+    .hero { padding: 160px 0 100px; text-align: left; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
+    
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      margin: 20px 0;
+    }
+    h1 span { color: var(--pink); display: block; font-size: 0.6em; }
+
+    .tag {
+      background: rgba(246, 210, 122, 0.1);
+      border: 1px solid var(--gold);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--gold);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 18px 35px;
+      border-radius: 12px;
       font-weight: 700;
-    }
-    .cta {
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
       text-align: center;
-      padding: 88px 0 98px;
     }
-    .cta h2 {
-      margin: 12px auto 0;
-      max-width: 920px;
-      font-size: 54px;
-      color: #fff2cc;
-      line-height: 1.14;
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #d4af37);
+      color: #1a0815;
+      box-shadow: 0 10px 20px rgba(246, 210, 122, 0.2);
     }
-    .cta p {
-      max-width: 760px;
-      margin: 20px auto 0;
-      color: rgba(255,247,239,.76);
-      line-height: 1.8;
-      font-size: 19px;
+    .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(246, 210, 122, 0.4); }
+
+    .tabs-container {
+      margin-top: 50px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
     }
-    footer {
-      padding: 0 0 36px;
-      text-align: center;
-      color: rgba(255,247,239,.40);
-      font-size: 14px;
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+      overflow-x: auto;
     }
-    @media (max-width: 980px) {
-      .hero-grid, .cards, .benefit-grid, .section-top, .about-grid, .service-grid {
-        grid-template-columns: 1fr;
-        display: grid;
-      }
-      .section-top { align-items: start; }
-      h1 { font-size: 54px; }
-      .section-top h2, .cta h2 { font-size: 38px; }
-      .about-photo { width: 220px; height: 220px; }
+    .tab-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: #888;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      transition: 0.3s;
+      border-radius: 8px;
+      white-space: nowrap;
     }
-    @media (max-width: 640px) {
-      .hero-grid { padding: 66px 0 54px; gap: 24px; }
-      h1 { font-size: 42px; }
-      .subtitle { font-size: 17px; }
-      .card h3, .service-panel h3 { font-size: 26px; }
-      .price-title { font-size: 23px; }
-      .cta { padding: 72px 0 82px; }
-      .cta h2 { font-size: 32px; }
-      .about-card p { font-size: 17px; }
+    .tab-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(246, 210, 122, 0.05);
+    }
+    .tab-content { display: none; animation: fadeIn 0.5s ease; }
+    .tab-content.active { display: block; }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .price-table tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+    .price-table tr:hover { background: rgba(255,255,255,0.02); }
+    .price-table td { padding: 12px; font-size: 1.1rem; }
+    .price-table td:last-child { text-align: right; color: var(--gold); font-weight: bold; min-width: 100px; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      padding: 30px;
+      border-radius: 24px;
+      transition: 0.4s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { border-color: var(--gold); transform: translateY(-10px); }
+    .card h3 { font-family: 'Cinzel'; color: var(--gold); margin-top: 0; }
+    .card ul { padding-left: 20px; font-size: 0.95rem; flex-grow: 1; }
+    .card li { margin-bottom: 8px; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .nav-links { display: none; }
+      h1 { font-size: 2.8rem; }
+      .price-table td { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
+
+  <div class="stars-container" id="stars"></div>
+
+  <nav>
+    <div class="nav-content">
+      <div class="logo">ANDY TAROT</div>
+      <div class="nav-links">
+        <a href="#precos">Tabela</a>
+        <a href="#pacotes">Pacotes Amor</a>
+        <a href="#magias">Rituais</a>
+        <a href="https://wa.me/5574999101447?text=Oi%20Andy%2C%20vim%20do%20TikTok%20quero%20me%20consultar%20%E2%9D%A4">Agendar</a>
+      </div>
+    </div>
+  </nav>
+
   <header class="hero">
     <div class="container hero-grid">
-      <div>
-        <span class="tag">Tarot • Bruxaria • Cartomancia</span>
-        <h1>Andy Nunes <span>• Tarot e Magias</span></h1>
-        <p class="subtitle">
-          Leituras místicas com profundidade, sensibilidade e direcionamento real para amor, caminhos,
-          decisões, espiritualidade, energia atual e desbloqueios da vida.
+      <div class="reveal">
+        <span class="tag">✦ Clareza & Espiritualidade</span>
+        <h1>Andy Tarot <span>e Magias</span></h1>
+        <p style="font-size: 1.4rem; color: rgba(255,255,255,0.8); margin-bottom: 30px;">
+          Desvende o oculto e encontre clareza para seus caminhos através da sabedoria dos oráculos e rituais ancestrais.
         </p>
-        <div class="identity">
-          <span>Cartomante</span>
-          <span>Taróloga</span>
-          <span>Oraculista</span>
-          <span>Bruxa</span>
-        </div>
-        <div class="buttons">
-          <a class="btn-primary" href="https://wa.me/5574999101447" target="_blank" rel="noopener noreferrer">Agendar pelo WhatsApp</a>
-          <a class="btn-secondary" href="#sobre">Sobre mim</a>
-          <a class="btn-secondary" href="#tarot">Tarot</a>
-          <a class="btn-secondary" href="#magias">Magias</a>
-        </div>
-        <div class="chips">
-          <span class="chip">+ de 1.000 atendimentos</span>
-          <span class="chip">Pix</span>
-          <span class="chip">Cartão de crédito</span>
-          <span class="chip">Atendimento online</span>
-        </div>
-        <div class="social-box">
-          <span>Instagram:</span>
-          <a class="insta" href="https://www.instagram.com/andynunes_cartomante?igsh=MWphZnh1eXc1ZWFtbw==" target="_blank" rel="noopener noreferrer">@andynunes_cartomante</a>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <a href="https://wa.me/5574999101447?text=Oi%20Andy%2C%20vim%20do%20TikTok%20quero%20me%20consultar%20%E2%9D%A4" class="btn btn-primary">Escolher Plano</a>
+            <a href="#pacotes" class="btn" style="border: 1px solid var(--border); color: white;">Ver Pacotes</a>
         </div>
       </div>
-
-      <div class="hero-card">
-        <div class="portrait">
-          <div class="portrait-placeholder">
-            <div class="portrait-ring">🔮</div>
-            <div style="font-size:30px; color:#fff2cc; font-weight:700;">Tema tarot e magias</div>
-            <p style="line-height:1.85; color:rgba(255,247,239,.78); margin:14px 0 0;">
-              Deixei essa versão mais viva, com brilho, flutuação e clima místico.
-              A área da sua foto redonda já ficou preparada na seção “Sobre mim”.
-            </p>
-          </div>
+      
+      <div class="reveal" style="text-align: center;">
+        <div style="position: relative; display: inline-block;">
+            <img src="https://raw.githubusercontent.com/sean-scripts-database/images-server/refs/heads/main/16%20Sem%20T%C3%ADtulo_20260323112306.png" 
+                 alt="Andy Tarot" 
+                 style="width: 280px; height: 280px; border-radius: 50%; object-fit: cover; border: 4px solid var(--gold); box-shadow: 0 0 50px rgba(246, 210, 122, 0.2);">
         </div>
-
-        <div class="price-wrap">
-          <div class="price-title">
-            <span>Tabela de preços rápidos</span>
-            <span>✦</span>
-          </div>
-          <div class="row"><span>1 pergunta</span><strong>R$ 20,00</strong></div>
-          <div class="row"><span>2 perguntas</span><strong>R$ 35,00</strong></div>
-          <div class="row"><span>3 perguntas</span><strong>R$ 55,00</strong></div>
-          <div class="row"><span>5 perguntas</span><strong>R$ 75,00</strong></div>
-          <div class="row"><span>Conselho da espiritualidade</span><strong>R$ 25,00</strong></div>
-          <div class="row"><span>Consulta 30 min</span><strong>R$ 70,00</strong></div>
+        <div class="tabs-container" id="precos" style="text-align: left; margin-top: 30px;">
+            <h3 style="font-family: Cinzel; color: var(--gold); margin-bottom: 0;">Tabela Geral</h3>
+            <table class="price-table">
+                <tr><td>1 Pergunta</td><td>R$ 20,00</td></tr>
+                <tr><td>2 Perguntas</td><td>R$ 35,00</td></tr>
+                <tr><td>3 Perguntas</td><td>R$ 55,00</td></tr>
+                <tr><td>5 Perguntas</td><td>R$ 75,00</td></tr>
+                <tr><td>Conselho Espiritual</td><td>R$ 25,00</td></tr>
+                <tr><td>Consulta (30 Min)</td><td>R$ 70,00</td></tr>
+            </table>
         </div>
       </div>
     </div>
   </header>
 
-  <section class="mystic-strip">
-    <div class="container">
-      <div class="line">
-        <span class="seal">Leituras profundas</span>
-        <span class="seal">Tarot amoroso</span>
-        <span class="seal">Direcionamento espiritual</span>
-        <span class="seal">Clareza para decisões</span>
+  <section id="pacotes" class="container reveal" style="padding: 80px 0;">
+    <h2 style="font-family: Cinzel; text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Pacotes Especiais</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Insisto ou Desisto?</h3>
+        <ul>
+          <li>Futuro da história amorosa</li>
+          <li>Interesse e reciprocidade</li>
+          <li>Sinais de evolução ou corte</li>
+          <li>Chances de sucesso vs Riscos</li>
+        </ul>
+        <p style="font-size: 1.5rem; font-weight: bold; margin: 15px 0; color: var(--gold);">R$ 65,00</p>
+        <a href="https://wa.me/5574999101447?text=Oi%20Andy%2C%20vim%20do%20TikTok%20quero%20me%20consultar%20%E2%9D%A4" class="btn-primary btn" style="padding: 12px; font-size: 0.8rem;">Contratar</a>
+      </div>
+
+      <div class="card">
+        <h3>Pacote EX</h3>
+        <ul>
+          <li>Sentimentos atuais dele(a)</li>
+          <li>O que pensa sobre a relação</li>
+          <li>Existe arrependimento?</li>
+          <li>Pretende voltar? / Como agir?</li>
+        </ul>
+        <p style="font-size: 1.5rem; font-weight: bold; margin: 15px 0; color: var(--gold);">R$ 70,00</p>
+        <a href="https://wa.me/5574999101447?text=Oi%20Andy%2C%20vim%20do%20TikTok%20quero%20me%20consultar%20%E2%9D%A4" class="btn-primary btn" style="padding: 12px; font-size: 0.8rem;">Contratar</a>
+      </div>
+
+      <div class="card">
+        <h3>Missão de Vida</h3>
+        <ul>
+          <li>Sua principal missão espiritual</li>
+          <li>Ciclos ancestrais para quebrar</li>
+          <li>Bloqueios à evolução</li>
+          <li>Talentos ocultos e dons</li>
+        </ul>
+        <p style="font-size: 1.5rem; font-weight: bold; margin: 15px 0; color: var(--gold);">R$ 60,00</p>
+        <a href="https://wa.me/5574999101447?text=Oi%20Andy%2C%20vim%20do%20TikTok%20quero%20me%20consultar%20%E2%9D%A4" class="btn-primary btn" style="padding: 12px; font-size: 0.8rem;">Contratar</a>
       </div>
     </div>
   </section>
 
-  <section id="sobre">
-    <div class="container">
-      <div class="section-top">
-        <div>
-          <div class="eyebrow">Sobre mim</div>
-          <h2>Quem está por trás das leituras</h2>
+  <section id="magias" class="container reveal" style="padding: 80px 0;">
+    <h2 style="font-family: Cinzel; text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Rituais & Magias</h2>
+    
+    <div class="tabs-container">
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="openTab(event, 'amor')">Amor & Magnetismo</button>
+        <button class="tab-btn" onclick="openTab(event, 'prosperidade')">Prosperidade</button>
+        <button class="tab-btn" onclick="openTab(event, 'limpeza')">Limpeza & Proteção</button>
+      </div>
+
+      <div id="amor" class="tab-content active">
+        <table class="price-table">
+            <tr><td>Adoçamento Amoroso</td><td>R$ 280,00</td></tr>
+            <tr><td>Vira Pensamento</td><td>R$ 387,00</td></tr>
+            <tr><td>Magnetismo & Autoestima</td><td>R$ 297,00</td></tr>
+            <tr><td>Ponto do Amor</td><td>R$ 497,00</td></tr>
+        </table>
+      </div>
+
+      <div id="prosperidade" class="tab-content">
+        <div style="margin-bottom: 20px; padding: 15px; background: rgba(246, 210, 122, 0.05); border-radius: 10px; border-left: 4px solid var(--gold);">
+            <h4 style="margin: 0; color: var(--gold);">Ritual Hoodoo: Coroa de Sucesso</h4>
+            <p style="margin: 5px 0; font-size: 0.9rem;">Para abrir caminhos, atrair dinheiro e novas oportunidades financeiras.</p>
+            <span style="font-weight: bold; color: var(--gold);">R$ 280,00</span>
         </div>
-        <p>
-          Um espaço para apresentar sua energia, sua trajetória e a confiança que você já construiu em tantos atendimentos.
-        </p>
+        <table class="price-table">
+            <tr><td>Abertura de Caminhos</td><td>R$ 390,00</td></tr>
+            <tr><td>Limpeza de Negócios</td><td>Sob Consulta</td></tr>
+        </table>
       </div>
 
-      <div class="about-grid">
-        <div class="about-photo-wrap">
-          <div class="about-photo">
-  <img src="https://raw.githubusercontent.com/sean-scripts-database/images-server/refs/heads/main/16%20Sem%20T%C3%ADtulo_20260323112306.png" alt="Andy Nunes" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-</div>
-        </div>
-
-        <div class="about-card">
-          <h3>Andy Nunes</h3>
-          <p>
-            Sou <strong>Cartomante, Taróloga, Oraculista e Bruxa</strong>. Ao longo da minha trajetória,
-            já atendi <strong>mais de 1.000 pessoas</strong>, oferecendo leituras com profundidade,
-            sensibilidade e verdade.
-          </p>
-          <p>
-            Meu trabalho é voltado para quem busca clareza nos sentimentos, direção nos caminhos,
-            respostas sobre o amor, orientação espiritual e entendimento mais profundo sobre o próprio momento de vida.
-          </p>
-          <p>
-            Aqui, você encontra um espaço místico, acolhedor e direto, onde as cartas revelam o que precisa ser visto
-            com sinceridade, consciência e conexão espiritual.
-          </p>
-          <div class="about-marks">
-            <span>+ de 1.000 pessoas atendidas</span>
-            <span>Atendimento online</span>
-            <span>Leitura sensível e objetiva</span>
-            <span>Tarot e oráculos</span>
-          </div>
-        </div>
+      <div id="limpeza" class="tab-content">
+        <table class="price-table">
+            <tr><td>Quebra de Magia</td><td>R$ 420,00</td></tr>
+            <tr><td>Pote da Destruição</td><td>R$ 400,00</td></tr>
+            <tr><td>Desobsessão</td><td>R$ 420,00</td></tr>
+            <tr><td>Separação</td><td>R$ 427,00</td></tr>
+        </table>
       </div>
     </div>
   </section>
 
-  <section id="tarot">
-    <div class="container">
-      <div class="section-top">
-        <div>
-          <div class="eyebrow">Tiragens em destaque</div>
-          <h2>Pacotes que conectam com amor e verdade</h2>
-        </div>
-        <p>
-          
-        </p>
-      </div>
+  <footer style="padding: 50px 0; text-align: center; border-top: 1px solid var(--border);">
+    <p style="font-family: Cinzel; color: var(--gold); letter-spacing: 2px;">Andy Tarot • Pix e Cartão</p>
+    <p style="opacity: 0.5; font-size: 0.8rem;">© 2026 • Todos os direitos reservados</p>
+  </footer>
 
-      <div class="cards">
-        <article class="card featured">
-          <div class="card-head">
-            <h3>Templo de Afrodite</h3>
-            <span class="price-pill">R$ 67,77</span>
-          </div>
-          <p>Tiragem completa para amor e conexão, com foco em sentimentos, química, futuro da relação e conselhos do Tarot.</p>
-          <ul>
-            <li>Pensamentos de um sobre o outro</li>
-            <li>Sentimentos reais</li>
-            <li>Química e desejo sexual</li>
-            <li>Futuro da relação</li>
-            <li>Conselhos do Tarot para agir certo</li>
-          </ul>
-          <a class="small-btn" href="https://wa.me/5574999101447" target="_blank" rel="noopener noreferrer">Quero esse atendimento</a>
-        </article>
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].classList.remove("active");
+      }
+      tablinks = document.getElementsByClassName("tab-btn");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.className += " active";
+    }
 
-        <article class="card">
-          <div class="card-head">
-            <h3>Espelho do Coração</h3>
-            <span class="price-pill">R$ 67,77</span>
-          </div>
-          <p>Uma tiragem de autoconhecimento amoroso para entender a conexão, a necessidade emocional e a verdade escondida por trás do sentimento.</p>
-          <ul>
-            <li>O que em mim se conecta com essa pessoa?</li>
-            <li>Isso que eu sinto é amor ou necessidade emocional?</li>
-            <li>O que eu estou tentando viver através dessa pessoa?</li>
-            <li>Qual verdade eu estou evitando enxergar?</li>
-            <li>Quem eu me torno se me liberto disso?</li>
-          </ul>
-          <a class="small-btn" href="https://wa.me/5574999101447" target="_blank" rel="noopener noreferrer">Quero esse atendimento</a>
-        </article>
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        if (elementTop < windowHeight - 150) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal();
 
-        <article class="card">
-          <div class="card-head">
-            <h3>Mesa Real</h3>
-            <span class="price-pill">R$ 90,00</span>
-          </div>
-          <p>Método mais completo e detalhado para analisar várias áreas da vida, dificuldades, resoluções, futuro, energia atual e destravamentos.</p>
-          <ul>
-            <li>Inclui dicas de banhos energéticos</li>
-            <li>Leitura profunda e ampla</li>
-          </ul>
-          <a class="small-btn" href="https://wa.me/5574999101447" target="_blank" rel="noopener noreferrer">Quero esse atendimento</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="magias">
-    <div class="container">
-      <div class="section-top">
-        <div>
-          <div class="eyebrow">Magias e trabalhos</div>
-          <h2>Serviços espirituais em destaque</h2>
-        </div>
-        <p>
-          Adicionei suas magias em uma seção própria, com visual forte e organizado para facilitar a leitura.
-        </p>
-      </div>
-
-      <div class="service-grid">
-        <article class="service-panel">
-          <h3>Amor e magnetismo</h3>
-          <ul>
-            <li>Adoçamento Amoroso — R$ 280,00</li>
-            <li>Vira Pensamento — R$ 387,00</li>
-            <li>Obsessão Amorosa — R$ 400,00</li>
-            <li>Magnetismo e Autoestima — R$ 297,00</li>
-            <li>Ponto do Amor — R$ 497,00</li>
-            <li>Chora nos Meus Pés — R$ 397,00</li>
-          </ul>
-        </article>
-
-        <article class="service-panel">
-          <h3>Corte e impacto</h3>
-          <ul>
-            <li>Broxamento — R$ 357,00</li>
-            <li>Magia de Arrependimento — R$ 350,00</li>
-            <li>Pote da Destruição — R$ 400,00</li>
-            <li>Fechamento de Caminhos Amorosos — R$ 477,00</li>
-            <li>Magia de Separação — R$ 427,00</li>
-            <li>Magia de Destruição — R$ 477,00</li>
-          </ul>
-        </article>
-
-        <article class="service-panel">
-          <h3>Proteção e abertura</h3>
-          <ul>
-            <li>Desobsessão Espiritual — R$ 420,00</li>
-            <li>Dominação Sexual — R$ 280,00</li>
-            <li>Abertura de Caminhos Financeiros — R$ 390,00</li>
-            <li>Quebra de Magias — R$ 420,00</li>
-            <li>Para outros trabalhos, chame e faça seu orçamento</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="benefits">
-    <div class="container benefit-grid">
-      <div class="benefit">
-        <h3>Leitura sensível e profunda</h3>
-        <p>Atendimento com foco em clareza, verdade e orientação real para o momento que você está vivendo.</p>
-      </div>
-      <div class="benefit">
-        <h3>Energia mística e presença espiritual</h3>
-        <p>Um site alinhado com sua identidade bruxa, tarológica e oracular, transmitindo força e conexão desde a primeira vista.</p>
-      </div>
-      <div class="benefit">
-        <h3>Pix e cartão</h3>
-        <p>Formas de pagamento acessíveis para facilitar o agendamento do seu atendimento.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta">
-    <div class="container">
-      <div class="eyebrow">Agende seu atendimento</div>
-      <h2>Receba respostas, direcionamento e mais clareza para os seus caminhos.</h2>
-      <p>Amor, espiritualidade, decisões, futuro, bloqueios e autoconhecimento com uma leitura feita com presença, intuição e profundidade.</p>
-      <div class="buttons" style="justify-content:center">
-        <a class="btn-primary" href="https://wa.me/5574999101447" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
-        <a class="btn-secondary" href="https://www.instagram.com/andynunes_cartomante?igsh=MWphZnh1eXc1ZWFtbw==" target="_blank" rel="noopener noreferrer">Ver Instagram</a>
-      </div>
-    </div>
-  </section>
-
-  <footer>Andy Nunes • Tarot e Magias</footer>
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 60; i++) {
+      const star = document.createElement('div');
+      star.style.position = 'absolute';
+      star.style.width = '2px';
+      star.style.height = '2px';
+      star.style.background = '#fff';
+      star.style.borderRadius = '50%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+  </script>
 </body>
 </html>
